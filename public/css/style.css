@@ -1,0 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
+#canvas {
+    background:rgb(0,0,1);
+}
+
+#canvas:focus {
+    outline: solid 5px green;
+}
