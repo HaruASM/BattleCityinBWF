@@ -42,10 +42,10 @@ var seqLoad = (function(){
 })(); //seqLoad
 
 
-function init_system(lists){ // 동기적으로 순서대로
+function init_system(lists, nexts){ // 동기적으로 순서대로
     Promise.all(lists)
         .then (function(e){console.log('load end');
-        main();
+          main();
         })
         .catch(function(e){console.log('load fail\n' + e.stack);});
 }
@@ -59,16 +59,19 @@ window.onload = function(){
         console.log( progress+ ' / '+ loadList.length ); // 로딩 progressBar 구현부분
     }
     
-    var loadList = [
-        seqLoad.img('images/BattleCityResource.png'),
-        seqLoad.js('js/config.js'),
-        seqLoad.js('js/events.js'),
-        seqLoad.js('js/imagesManage.js'),
-        seqLoad.js('js/objManage.js'),
-        seqLoad.js('js/main.js')
-    ];
-    loadList.forEach(function(val,idx){val.then(function(){checkProgress(1);})});
-    init_system(loadList);
+    main();
+    // var loadList = [
+    //     seqLoad.js('js/config.js'),
+    //     seqLoad.img('images/BattleCityResource.png'),
+    //     seqLoad.js('js/events.js'),
+    //     seqLoad.js('js/imagesManage.js'),
+    //     seqLoad.js('js/objManage.js'),
+    //     seqLoad.js('js/mapManage.js'),
+    //     seqLoad.js('js/procedure.js'),
+    //     seqLoad.js('js/main.js')
+    // ];
+    // loadList.forEach(function(val,idx){val.then(function(){checkProgress(1);})});
+    // init_system(loadList);
     
 }
 

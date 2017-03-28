@@ -5,22 +5,34 @@ const   http = require('http'),
 
 //var pageIndex = fs.readFileSync('./public/index.html');
 
-var router = [];
+var favi = fs.readFileSync(path.join(__dirname,'/public/images' ,'favicon.png'))
+
+var router = Object.create(null);
     router['/'] = 'index.html';
+    router['/favicon.ico'] = function(res){
+        
+      res.writeHead(200,{'Content-Type':'image/x-icon'});
+      res.end();
+    };
 
 var handler = (req, res )=> {
     var uri = url.parse( req.url).pathname;
     if( router[uri]  ){ // URL 
+        if( typeof router[uri] === 'function' )
+            router[uri](res);  // specialize 함수 실행
+        else { // html파일 serve
+            res.setHeader('Content-Type', 'text/html');
+            res.writeHead(200, {'Content-Type':'text/html'});
         
-        res.setHeader('Content-Type', 'text/html');
-        res.writeHead(200, {'Content-Type':'text/html'});
-        
-        fs.readFile(`./public/${router[uri]}`,(err, file)=>{
+            fs.readFile(`./public/${router[uri]}`,(err, file)=>{
              if(err) throw err;
-            res.write(file);
-            res.end();
-        }); 
-        return ;
+               res.write(file);
+               res.end();
+            }); 
+            return ;
+        }
+            
+            
     } // if (router)
 
     console.log(uri);
@@ -33,10 +45,10 @@ var handler = (req, res )=> {
 function serveFile(filename, res){
     filename = `./public${filename}`;
     if( !fs.existsSync(filename)) {
-        console.log(1);
+        
         res.writeHead(404, {'Content-Type': 'text/html'});
-        res.write("404 파일 없음\n");
-        res.end();
+        //res.write("404 파일 없음\n");
+        res.end("404 파일 없음");
         return;
     }; // path.exists    
     

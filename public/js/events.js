@@ -1,56 +1,43 @@
 //### // input management
 //### events.js
-//### 담당 : 이장희
 //### 감수 : 정해균
 
-/* global config */
+/* global config값을 config.js에 둠*/
 
-// X ( 전체 , 캔버스 )
 function Events(doc){
   'use strict';
   this.doc = doc; // 안쓰는 속성.
   this.cvs = document.getElementById('canvas');
   this.cvs.focus();
+  
 }
 
-Events.prototype.cvsKeyBind = function(funcObj) {
-  
+
+Events.prototype.cvsKeyBind = function(functor) {
+  // this.cvs.addEventListener('keydown', function(e) {
+  //   if(key_set_1p.indexOf(e.keyCode) >= 0 && functor[e.keyCode]) {
+  //     functor[e.keyCode]();
+  //   }
     
+  //   e.stopPropagation();
+  //   e.preventDefault();
+  // });
+  
+  // this.cvs.addEventListener('keydown', function(e) {
+  //   if(key_set_2p.indexOf(e.keyCode) >= 0 && functor[e.keyCode]) {
+  //     functor[e.keyCode]();
+  //   }
+    
+  //   e.stopPropagation();
+  //   e.preventDefault();
+  // })
   this.cvs.addEventListener('keydown', function(e) {
-    switch (e.keyCode) {
-      case config.LEFT_KEY_1P:
-          funcObj.p1.leftListener();
-          break;
-      case config.RIGHT_KEY_1P:
-          funcObj.p1.rightListener();
-          break;
-      case config.UP_KEY_1P:
-          funcObj.p1.upListener();
-          break;
-      case config.DOWN_KEY_1P:
-          funcObj.p1.downListener();
-          break;
-      case config.SHOT_KEY_1P:
-          funcObj.p1.shotListener();
-          break;
-      case config.LEFT_KEY_2P:
-          funcObj.p2.leftListener();
-          break;
-      case config.RIGHT_KEY_2P:
-          funcObj.p2.rightListener();
-          break;
-      case config.UP_KEY_2P:
-          funcObj.p2.upListener();
-          break;
-      case config.DOWN_KEY_2P:
-          funcObj.p2.downListener();
-          break;
-      case config.SHOT_KEY_2P:
-          funcObj.p2.shotListener();
-          break;
+    if(functor[e.keyCode]) {
+      functor[e.keyCode]();
     }
-        
+    
     e.stopPropagation();
     e.preventDefault();
   });
+  
 }
