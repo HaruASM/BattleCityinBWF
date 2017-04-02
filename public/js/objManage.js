@@ -146,6 +146,10 @@ Player.prototype.move = function(dir) {
     
     blocks.forEach(function(elem) {
         
+        
+        if( !elem )
+            return ;
+            
         var sx1 = tmpPosX;
         var sx2 = tmpPosX + CONFIG.SPRITESIZE;
         

@@ -1,0 +1,1 @@
+[{"row":5,"col":3,"state":0,"type":"dummy"},{"row":5,"col":4,"state":0,"type":"dummy"}]

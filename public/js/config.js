@@ -23,6 +23,17 @@ CONFIG.KEYPAD = {
   'SHOT_KEY_2P':13
 };
 
+// ## 상수 - 마우스 이벤트
+// ## 작성자 정해균
+// ## 일시 : 07 04 01
+// ## targ : events.js
+// ## 속성
+// CLICK, DRAG : 현재 맵 에디터에서 일어나는 마우스 이벤트 Flag
+CONFIG.MOUSE_EVENT = {
+  CLICK:0,
+  DRAG:1
+};
+
 
 
 // ## 상수 - 방향용 

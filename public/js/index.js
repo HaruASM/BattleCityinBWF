@@ -1,4 +1,6 @@
-//## 세준: 여기는 저만 만집니데이
+//## 작성 : 세준
+//## 일시 : 17. 04. 01
+//## 
 
 var seqLoad = (function(){
   function load(tag){
@@ -41,17 +43,35 @@ var seqLoad = (function(){
   } // return {}
 })(); //seqLoad
 
-
 function init_system(lists, nexts){ // 동기적으로 순서대로
     Promise.all(lists)
         .then (function(e){console.log('load end');
           main();
         })
         .catch(function(e){console.log('load fail\n' + e.stack);});
-}
+} // init_system
+
+function sendData(data, callback ){
+  var xhr = new XMLHttpRequest();
+  var url = "https://battlecity-haruasm.c9users.io";
+  var params =  JSON.stringify(data);
+  
+  xhr.open("POST", url, true);
+  xhr.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        
+        var res =  this.responseText ;
+        callback(res);
+      } // if
+  };// onreadystatechange
+  xhr.onerror = function(){      console.log( 'error');    } // onerror
+  if(!xhr){      console.log('nop');      return ;    } //if xhr error
+
+  xhr.send(params);
+}   // sendData
 
 window.onload = function(){
-      
+
     var progress = 0 | 0;
 
     function checkProgress( size ){
@@ -60,6 +80,13 @@ window.onload = function(){
     }
     
     main();
+    
+    mapMgr.devSynStage('stage1'); // 스테이지 정보 가져오기
+
+    //db.saveMapData(1, 'stage2', tmpp );
+
+
+    // 동기화 부분
     // var loadList = [
     //     seqLoad.js('js/config.js'),
     //     seqLoad.img('images/BattleCityResource.png'),
@@ -73,5 +100,5 @@ window.onload = function(){
     // loadList.forEach(function(val,idx){val.then(function(){checkProgress(1);})});
     // init_system(loadList);
     
-}
+} // onload 
 
